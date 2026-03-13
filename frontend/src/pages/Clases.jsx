@@ -10,10 +10,9 @@ export default function Clases() {
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
-    instructor: '',
-    horario: '',
-    capacidad: '',
-    duracion: ''
+    precio: '',
+    tipo_pago: 'Mensual',
+    horarios: [],
   });
 
   const queryClient = useQueryClient();
@@ -58,20 +57,18 @@ export default function Clases() {
       setFormData({
         nombre: clase.nombre,
         descripcion: clase.descripcion,
-        instructor: clase.instructor,
-        horario: clase.horario,
-        capacidad: clase.capacidad,
-        duracion: clase.duracion
+        precio: clase.precio,
+        tipo_pago: clase.tipo_pago,
+        horarios: clase.horarios ? clase.horarios.split(', ') : [],
       });
     } else {
       setSelectedClase(null);
       setFormData({
         nombre: '',
         descripcion: '',
-        instructor: '',
-        horario: '',
-        capacidad: '',
-        duracion: ''
+        precio: '',
+        tipo_pago: 'Mensual',
+        horarios: [],
       });
     }
     setShowModal(true);
@@ -90,6 +87,22 @@ export default function Clases() {
       createMutation.mutate(formData);
     }
   };
+  
+  const handleHorarioChange = (index, value) => {
+    const newHorarios = [...formData.horarios];
+    newHorarios[index] = value;
+    setFormData({ ...formData, horarios: newHorarios });
+  };
+
+  const addHorario = () => {
+    setFormData({ ...formData, horarios: [...formData.horarios, ''] });
+  };
+
+  const removeHorario = (index) => {
+    const newHorarios = formData.horarios.filter((_, i) => i !== index);
+    setFormData({ ...formData, horarios: newHorarios });
+  };
+
 
   const clases = clasesData?.data?.data || [];
 
@@ -118,10 +131,11 @@ export default function Clases() {
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Instructor</th>
-              <th>Horario</th>
-              <th>Capacidad</th>
-              <th>Duración</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Tipo de Pago</th>
+              <th>Horarios</th>
+              <th>Clientes</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -129,10 +143,11 @@ export default function Clases() {
             {clases.map((clase) => (
               <tr key={clase.id_clase}>
                 <td>{clase.nombre}</td>
-                <td>{clase.instructor}</td>
-                <td>{clase.horario}</td>
-                <td>{clase.capacidad}</td>
-                <td>{clase.duracion} min</td>
+                <td>{clase.descripcion}</td>
+                <td>{clase.precio}</td>
+                <td>{clase.tipo_pago}</td>
+                <td>{clase.horarios}</td>
+                <td>{clase.num_clientes}</td>
                 <td>
                   <button className="btn-icon text-warning" onClick={() => openModal(clase)}>
                     <FiEdit2 />
@@ -173,41 +188,43 @@ export default function Clases() {
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label>Instructor *</label>
+                  <label>Precio *</label>
                   <input
-                    type="text"
-                    value={formData.instructor}
-                    onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
+                    type="number"
+                    value={formData.precio}
+                    onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Horario *</label>
-                  <input
-                    type="time"
-                    value={formData.horario}
-                    onChange={(e) => setFormData({ ...formData, horario: e.target.value })}
-                    required
-                  />
+                  <label>Tipo de Pago</label>
+                  <select
+                    value={formData.tipo_pago}
+                    onChange={(e) => setFormData({ ...formData, tipo_pago: e.target.value })}
+                  >
+                    <option value="Mensual">Mensual</option>
+                    <option value="Único">Único</option>
+                  </select>
                 </div>
               </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Capacidad</label>
-                  <input
-                    type="number"
-                    value={formData.capacidad}
-                    onChange={(e) => setFormData({ ...formData, capacidad: e.target.value })}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Duración (minutos)</label>
-                  <input
-                    type="number"
-                    value={formData.duracion}
-                    onChange={(e) => setFormData({ ...formData, duracion: e.target.value })}
-                  />
-                </div>
+              <div className="form-group">
+                <label>Horarios</label>
+                {formData.horarios.map((horario, index) => (
+                  <div key={index} className="input-group">
+                    <input
+                      type="text"
+                      value={horario}
+                      onChange={(e) => handleHorarioChange(index, e.target.value)}
+                      placeholder="Ej: Lunes 10:00"
+                    />
+                    <button type="button" className="btn-icon text-danger" onClick={() => removeHorario(index)}>
+                      <FiX />
+                    </button>
+                  </div>
+                ))}
+                <button type="button" className="btn btn-sm btn-secondary" onClick={addHorario}>
+                  Agregar Horario
+                </button>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={closeModal}>

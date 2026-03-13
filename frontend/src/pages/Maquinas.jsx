@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { FiPlus, FiEdit2, FiTrash2, FiX } from 'react-icons/fi';
 import { maquinaService } from '../services/api';
+
+const API_URL = 'http://localhost:3001';
 
 export default function Maquinas() {
   const [showModal, setShowModal] = useState(false);
   const [selectedMaquina, setSelectedMaquina] = useState(null);
   const [formData, setFormData] = useState({
     nombre: '',
-    serie: '',
-    ubicacion: '',
-    estado: 'activa',
-    ultima_mantencion: ''
+    descripcion: '',
+    foto: null
   });
+  const fileInputRef = useRef(null);
 
   const queryClient = useQueryClient();
 
@@ -56,20 +57,19 @@ export default function Maquinas() {
       setSelectedMaquina(maquina);
       setFormData({
         nombre: maquina.nombre,
-        serie: maquina.serie,
-        ubicacion: maquina.ubicacion,
-        estado: maquina.estado,
-        ultima_mantencion: maquina.ultima_mantencion
+        descripcion: maquina.descripcion || '',
+        foto: null
       });
     } else {
       setSelectedMaquina(null);
       setFormData({
         nombre: '',
-        serie: '',
-        ubicacion: '',
-        estado: 'activa',
-        ultima_mantencion: ''
+        descripcion: '',
+        foto: null
       });
+    }
+    if (fileInputRef.current) {
+        fileInputRef.current.value = null;
     }
     setShowModal(true);
   };
@@ -81,10 +81,18 @@ export default function Maquinas() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    const data = new FormData();
+    data.append('nombre', formData.nombre);
+    data.append('descripcion', formData.descripcion);
+    if (formData.foto) {
+      data.append('foto', formData.foto);
+    }
+
     if (selectedMaquina) {
-      updateMutation.mutate({ id: selectedMaquina.id_maquina, data: formData });
+      updateMutation.mutate({ id: selectedMaquina.id_maquina, data });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(data);
     }
   };
 
@@ -108,38 +116,28 @@ export default function Maquinas() {
             <p>Total Máquinas</p>
           </div>
         </div>
-        <div className="stat-card">
-          <div className="stat-info">
-            <h3>{maquinas.filter(m => m.estado === 'activa').length}</h3>
-            <p>Activas</p>
-          </div>
-        </div>
       </div>
 
       <div className="card">
         <table className="table">
           <thead>
             <tr>
+              <th>Foto</th>
               <th>Nombre</th>
-              <th>Número de Serie</th>
-              <th>Ubicación</th>
-              <th>Estado</th>
-              <th>Última Mantención</th>
+              <th>Descripción</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {maquinas.map((maquina) => (
               <tr key={maquina.id_maquina}>
-                <td>{maquina.nombre}</td>
-                <td>{maquina.serie}</td>
-                <td>{maquina.ubicacion}</td>
                 <td>
-                  <span className={`badge ${maquina.estado === 'activa' ? 'badge-success' : 'badge-danger'}`}>
-                    {maquina.estado}
-                  </span>
+                  {maquina.foto && 
+                    <img src={`${API_URL}/uploads/${maquina.foto}`} alt={maquina.nombre} className="table-img" />
+                  }
                 </td>
-                <td>{maquina.ultima_mantencion}</td>
+                <td>{maquina.nombre}</td>
+                <td>{maquina.descripcion}</td>
                 <td>
                   <button className="btn-icon text-warning" onClick={() => openModal(maquina)}>
                     <FiEdit2 />
@@ -161,7 +159,7 @@ export default function Maquinas() {
               <h2>{selectedMaquina ? 'Editar Máquina' : 'Nueva Máquina'}</h2>
               <button className="btn-icon" onClick={closeModal}><FiX /></button>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               <div className="form-group">
                 <label>Nombre *</label>
                 <input
@@ -172,42 +170,26 @@ export default function Maquinas() {
                 />
               </div>
               <div className="form-group">
-                <label>Número de Serie</label>
-                <input
-                  type="text"
-                  value={formData.serie}
-                  onChange={(e) => setFormData({ ...formData, serie: e.target.value })}
+                <label>Descripción</label>
+                <textarea
+                  value={formData.descripcion}
+                  onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
                 />
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Ubicación</label>
-                  <input
-                    type="text"
-                    value={formData.ubicacion}
-                    onChange={(e) => setFormData({ ...formData, ubicacion: e.target.value })}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Estado</label>
-                  <select
-                    value={formData.estado}
-                    onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
-                  >
-                    <option value="activa">Activa</option>
-                    <option value="inactiva">Inactiva</option>
-                    <option value="mantencion">En Mantención</option>
-                  </select>
-                </div>
               </div>
               <div className="form-group">
-                <label>Última Mantención</label>
+                <label>Foto</label>
                 <input
-                  type="date"
-                  value={formData.ultima_mantencion}
-                  onChange={(e) => setFormData({ ...formData, ultima_mantencion: e.target.value })}
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={(e) => setFormData({ ...formData, foto: e.target.files[0] })}
                 />
               </div>
+              {selectedMaquina?.foto && 
+                <div className="form-group">
+                    <p>Foto actual:</p>
+                    <img src={`${API_URL}/uploads/${selectedMaquina.foto}`} alt={selectedMaquina.nombre} className="form-preview-img"/>
+                </div>
+              }
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={closeModal}>
                   Cancelar

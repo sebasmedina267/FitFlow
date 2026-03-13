@@ -1,122 +1,58 @@
 /* =========================================
-   FitFlow - Modern Dark Theme Design System
-   Based on Gestion_gym patterns
+   FitFlow - Electric Neon Dark Theme
    ========================================= */
 
 :root {
-  /* ===== PRIMARY COLORS - Zinc Ultra-Dark Theme ===== */
-  --bg-primary: #09090b;
-  --bg-secondary: #18181b;
-  --bg-tertiary: #27272a;
-  
-  /* ===== ACCENT COLORS - Vibrant & Modern ===== */
-  --accent-cyan: #06b6d4;
-  --accent-green: #10b981;
-  --accent-purple: #8b5cf6;
-  --accent-orange: #f59e0b;
-  --accent-pink: #ec4899;
-  
-  /* ===== STATUS COLORS ===== */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --info: #06b6d4;
-  
-  /* ===== TEXT COLORS ===== */
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-tertiary: #52525b;
-  
-  /* ===== BORDERS ===== */
-  --border-color: #334155;
-  --border-light: #475569;
-  
-  /* ===== GRAYS (Zinc Scale) ===== */
-  --gray-50: #09090b;
-  --gray-100: #18181b;
-  --gray-200: #27272a;
-  --gray-300: #3f3f46;
-  --gray-400: #52525b;
-  --gray-500: #71717a;
-  --gray-600: #a1a1aa;
-  --gray-700: #d4d4d8;
-  --gray-800: #e4e4e7;
-  --gray-900: #f4f4f5;
+  /* ===== Base Palette - Deep Space ===== */
+  --bg-primary: #0a0a0f;       /* Near-black for deep contrast */
+  --bg-secondary: #1a1a2e;     /* Dark navy blue for secondary surfaces */
+  --bg-tertiary: #16213e;      /* A slightly lighter navy for depth */
 
-  /* ===== SEMANTIC COLORS ===== */
+  /* ===== Accent Colors - Electric & Vibrant ===== */
+  --accent-cyan: #00f5d4;      /* Bright, electric cyan */
+  --accent-magenta: #ff00f5;  /* Vibrant magenta for highlights */
+  --accent-green: #39ff14;     /* Neon green for success states */
+  --accent-yellow: #f8f32b;    /* Bright yellow for warnings */
+  --accent-red: #ff3131;       /* Electric red for errors */
+
+  /* ===== Text & Borders ===== */
+  --text-primary: #f0f0f5;     /* Soft white for readability */
+  --text-secondary: #a9a9b8;   /* Muted gray for secondary text */
+  --border-color: #3d3d5e;     /* Subtle border to define elements */
+  --border-hover: var(--accent-cyan);
+
+  /* ===== Semantic Colors ===== */
   --color-primary: var(--accent-cyan);
-  --color-primary-light: rgba(6, 182, 212, 0.15);
-  
-  --color-success: var(--success);
-  --color-success-light: rgba(16, 185, 129, 0.15);
-  
-  --color-warning: var(--warning);
-  --color-warning-light: rgba(245, 158, 11, 0.15);
-  
-  --color-danger: var(--danger);
-  --color-danger-light: rgba(239, 68, 68, 0.15);
-  
-  --color-info: var(--info);
-  --color-info-light: rgba(6, 182, 212, 0.15);
-  
-  /* ===== SHADOWS (Dark-friendly) ===== */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.7);
-  
-  /* ===== LAYOUT ===== */
-  --sidebar-width: 220px;
-  --sidebar-collapsed-width: 70px;
-  --header-height: 64px;
-  
-  /* ===== TYPOGRAPHY ===== */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
+  --color-primary-light: rgba(0, 245, 212, 0.1);
+  --color-success: var(--accent-green);
+  --color-danger: var(--accent-red);
+  --color-warning: var(--accent-yellow);
+
+  /* ===== Shadows & Glows ===== */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+  --glow-primary: 0 0 8px var(--accent-cyan), 0 0 16px rgba(0, 245, 212, 0.5);
+  --glow-magenta: 0 0 8px var(--accent-magenta), 0 0 16px rgba(255, 0, 245, 0.5);
+
+  /* ===== Layout ===== */
+  --sidebar-width: 240px;
+  --header-height: 70px;
+
+  /* ===== Typography & Spacing ===== */
+  --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  
-  /* ===== SPACING ===== */
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
   --spacing-4: 1rem;
-  --spacing-5: 1.25rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  
-  /* ===== TRANSITIONS ===== */
-  --transition-fast: 150ms ease;
-  --transition-base: 200ms ease;
-  --transition-slow: 300ms ease;
+
+  /* ===== Transitions ===== */
+  --transition-fast: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-base: 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-slow: 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Reset & Base */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Base Styles */
 body {
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
-  line-height: 1.5;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-  background-color: var(--bg-primary);
-  transition: background-color var(--transition-base);
+  font-family: var(--font-family);
 }
-
-#root {
-  min-height: 100vh;
-  background-color: var(--bg-primary);
-}
-

@@ -29,10 +29,10 @@ const ClienteController = {
   // Crear cliente
   async create(req, res, next) {
     try {
-      const { nombre, apellidos, edad, sexo, clases } = req.body;
+      const { nombre, edad, sexo, clases } = req.body;
       
       const idCliente = await ClienteModel.create(
-        { nombre, apellidos, edad, sexo },
+        { nombre, edad, sexo },
         req.admin.id_admin
       );
 
@@ -45,7 +45,7 @@ const ClienteController = {
       await AuditoriaModel.registrar(
         req.admin.id_admin,
         'CLIENTES',
-        `Creó cliente: ${nombre} ${apellidos}`
+        `Creó cliente: ${nombre}`
       );
 
       res.status(201).json({
@@ -62,14 +62,14 @@ const ClienteController = {
   async update(req, res, next) {
     try {
       const { id } = req.params;
-      const { nombre, apellidos, edad, sexo, clases } = req.body;
+      const { nombre, edad, sexo, clases } = req.body;
 
       const cliente = await ClienteModel.getById(id);
       if (!cliente) {
         throw new AppError('Cliente no encontrado', 404);
       }
 
-      await ClienteModel.update(id, { nombre, apellidos, edad, sexo });
+      await ClienteModel.update(id, { nombre, edad, sexo });
 
       // Actualizar clases si se proporcionan
       if (clases !== undefined) {

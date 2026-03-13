@@ -1,15 +1,16 @@
 const { pool } = require('../config/database');
+const bcrypt = require('bcryptjs');
 
 const AdminModel = {
-  // Obtener todos los administradores
+  // Obtener todos los administradores (sin la contraseña)
   async getAll() {
     const [rows] = await pool.query(
-      'SELECT id_admin, nombre, apellidos, rol, edad, sexo, direccion, foto, fecha_creacion FROM administradores'
+      'SELECT id_admin, nombre, apellidos, rol, edad, sexo, direccion, foto, fecha_creacion FROM administradores ORDER BY nombre'
     );
     return rows;
   },
 
-  // Obtener por ID
+  // Obtener admin por ID (sin la contraseña)
   async getById(id) {
     const [rows] = await pool.query(
       'SELECT id_admin, nombre, apellidos, rol, edad, sexo, direccion, foto, fecha_creacion FROM administradores WHERE id_admin = ?',
@@ -18,7 +19,7 @@ const AdminModel = {
     return rows[0];
   },
 
-  // Obtener por nombre y apellidos (para login)
+  // Obtener admin por nombre completo (con la contraseña para login)
   async getByNombreCompleto(nombre, apellidos) {
     const [rows] = await pool.query(
       'SELECT * FROM administradores WHERE nombre = ? AND apellidos = ?',
@@ -27,30 +28,22 @@ const AdminModel = {
     return rows[0];
   },
 
-  // Verificar si existe un dueño
-  async existeDueno() {
-    const [rows] = await pool.query(
-      "SELECT id_admin FROM administradores WHERE rol = 'dueno' LIMIT 1"
-    );
-    return rows.length > 0;
-  },
-
   // Crear administrador
   async create(adminData) {
-    const { nombre, apellidos, rol, password, edad, sexo, direccion, foto } = adminData;
+    const { nombre, apellidos, rol, password } = adminData;
     const [result] = await pool.query(
-      'INSERT INTO administradores (nombre, apellidos, rol, password, edad, sexo, direccion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [nombre, apellidos, rol, password, edad || null, sexo || null, direccion || null, foto || null]
+      'INSERT INTO administradores (nombre, apellidos, rol, password) VALUES (?, ?, ?, ?)',
+      [nombre, apellidos, rol, password]
     );
     return result.insertId;
   },
 
-  // Actualizar administrador
+  // Actualizar perfil de administrador
   async update(id, adminData) {
     const { nombre, apellidos, edad, sexo, direccion, foto } = adminData;
     await pool.query(
       'UPDATE administradores SET nombre = ?, apellidos = ?, edad = ?, sexo = ?, direccion = ?, foto = ? WHERE id_admin = ?',
-      [nombre, apellidos, edad || null, sexo || null, direccion || null, foto || null, id]
+      [nombre, apellidos, edad, sexo, direccion, foto, id]
     );
   },
 
@@ -67,12 +60,12 @@ const AdminModel = {
     await pool.query('DELETE FROM administradores WHERE id_admin = ?', [id]);
   },
 
-  // Contar empleados
-  async countEmpleados() {
+  // Verificar si ya existe un dueño
+  async existeDueno() {
     const [rows] = await pool.query(
-      "SELECT COUNT(*) as total FROM administradores WHERE rol = 'empleado'"
+      "SELECT COUNT(*) as count FROM administradores WHERE rol = 'dueno'"
     );
-    return rows[0].total;
+    return rows[0].count > 0;
   }
 };
 

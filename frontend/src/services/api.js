@@ -78,6 +78,7 @@ export const productoService = {
   getById: (id) => api.get(`/productos/${id}`),
   create: (data) => api.post('/productos', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
   update: (id, data) => api.put(`/productos/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  delete: (id) => api.delete(`/productos/${id}`),
   compra: (data) => api.post('/productos/compra', data),
   venta: (data) => api.post('/productos/venta', data),
   getCompras: (params) => api.get('/productos/compras', { params }),
@@ -90,7 +91,8 @@ export const pagoService = {
   getAll: (params) => api.get('/pagos', { params }),
   getByClase: (id) => api.get(`/pagos/clase/${id}`),
   create: (data) => api.post('/pagos', data),
-  togglePago: (id, data) => api.put(`/pagos/${id}`, data),
+  marcarPagado: (id, data) => api.post(`/pagos/${id}/pagar`, data),
+  marcarNoPagado: (id) => api.post(`/pagos/${id}/desmarcar`),
   getEstadisticas: () => api.get('/pagos/estadisticas')
 };
 

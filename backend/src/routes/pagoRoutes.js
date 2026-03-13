@@ -25,10 +25,13 @@ router.post('/', [
   validateRequest
 ], PagoController.create);
 
-// Marcar pago como pagado/no pagado
-router.put('/:id', [
-  body('pagado').isBoolean().withMessage('El campo pagado debe ser booleano'),
+// Marcar como pagado
+router.post('/:id/pagar', [
+  body('importe').isFloat({ gt: 0 }).withMessage('El importe debe ser un número positivo'),
   validateRequest
-], PagoController.togglePago);
+], PagoController.marcarPagado);
+
+// Marcar como no pagado
+router.post('/:id/desmarcar', PagoController.marcarNoPagado);
 
 module.exports = router;

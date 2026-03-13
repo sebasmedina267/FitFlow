@@ -1,7 +1,8 @@
 /* =========================================
-   Tables
+   FitFlow - Electric Neon Tables
    ========================================= */
-.table-container {
+
+.table-wrapper {
   overflow-x: auto;
 }
 
@@ -10,49 +11,29 @@
   border-collapse: collapse;
 }
 
-.table th {
-  padding: var(--spacing-3) var(--spacing-4);
+.table th, .table td {
+  padding: 1rem;
   text-align: left;
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--gray-500);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table th {
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background-color: var(--gray-50);
-  border-bottom: 1px solid var(--gray-200);
+  color: var(--text-secondary);
+  background-color: var(--bg-tertiary);
 }
 
-.table td {
-  padding: var(--spacing-4);
-  font-size: var(--font-size-sm);
-  color: var(--gray-700);
-  border-bottom: 1px solid var(--gray-100);
-  vertical-align: middle;
+.table tbody tr {
+  transition: background-color var(--transition-fast);
 }
 
-.table tr:hover td {
-  background-color: var(--gray-50);
-}
-
-.table tr.clickable {
-  cursor: pointer;
-}
-
-.table-empty {
-  padding: var(--spacing-8);
-  text-align: center;
-  color: var(--gray-500);
-}
-
-.table-empty-icon {
-  font-size: 3rem;
-  color: var(--gray-300);
-  margin-bottom: var(--spacing-4);
+.table tbody tr:hover {
+  background-color: var(--bg-tertiary);
 }
 
 .table-actions {
   display: flex;
-  gap: var(--spacing-1);
-  justify-content: flex-end;
+  gap: 0.5rem;
 }
-

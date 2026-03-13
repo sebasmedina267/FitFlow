@@ -37,13 +37,7 @@ const ProductoController = {
 
       const idProducto = await ProductoModel.create({
         nombre, precio_venta, precio_compra, stock, descripcion, foto
-      });
-
-      // Registrar como compra inicial si hay stock
-      if (stock > 0) {
-        await ProductoModel.compra(idProducto, 0, precio_compra, req.admin.id_admin);
-        // La compra inicial ya se registró en el create con el stock
-      }
+      }, req.admin.id_admin);
 
       // Auditoría
       await AuditoriaModel.registrar(

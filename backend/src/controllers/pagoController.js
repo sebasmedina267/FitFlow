@@ -29,41 +29,6 @@ const PagoController = {
     }
   },
 
-  // Marcar pago como pagado/no pagado
-  async togglePago(req, res, next) {
-    try {
-      const { id } = req.params;
-      const { pagado, importe } = req.body;
-
-      if (pagado) {
-        await PagoModel.marcarPagado(id, importe, req.admin.id_admin);
-        
-        // Auditoría
-        await AuditoriaModel.registrar(
-          req.admin.id_admin,
-          'PAGOS',
-          `Registró pago ID: ${id} por $${importe}`
-        );
-      } else {
-        await PagoModel.marcarNoPagado(id);
-        
-        // Auditoría
-        await AuditoriaModel.registrar(
-          req.admin.id_admin,
-          'PAGOS',
-          `Desmarcó pago ID: ${id}`
-        );
-      }
-
-      res.json({
-        success: true,
-        message: pagado ? 'Pago registrado' : 'Pago desmarcado'
-      });
-    } catch (error) {
-      next(error);
-    }
-  },
-
   // Crear pago pendiente
   async create(req, res, next) {
     try {
@@ -83,6 +48,47 @@ const PagoController = {
     }
   },
 
+  // Marcar como pagado
+  async marcarPagado(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { importe } = req.body;
+
+      await PagoModel.marcarPagado(id, importe, req.admin.id_admin);
+
+      // Auditoría
+      await AuditoriaModel.registrar(
+        req.admin.id_admin,
+        'PAGOS',
+        `Registró pago ID: ${id} por $${importe}`
+      );
+
+      res.json({ success: true, message: 'Pago registrado correctamente' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  // Marcar como no pagado
+  async marcarNoPagado(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      await PagoModel.marcarNoPagado(id);
+
+      // Auditoría
+      await AuditoriaModel.registrar(
+        req.admin.id_admin,
+        'PAGOS',
+        `Desmarcó pago ID: ${id}`
+      );
+
+      res.json({ success: true, message: 'Pago desmarcado correctamente' });
+    } catch (error) {
+      next(error);
+    }
+  },
+  
   // Obtener estadísticas
   async getEstadisticas(req, res, next) {
     try {

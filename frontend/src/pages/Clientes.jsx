@@ -9,12 +9,8 @@ export default function Clientes() {
   const [selectedCliente, setSelectedCliente] = useState(null);
   const [formData, setFormData] = useState({
     nombre: '',
-    apellido: '',
-    email: '',
-    telefono: '',
-    ciudad: '',
-    genero: 'masculino',
-    fecha_nacimiento: ''
+    edad: '',
+    sexo: 'Hombre',
   });
 
   const queryClient = useQueryClient();
@@ -58,23 +54,15 @@ export default function Clientes() {
       setSelectedCliente(cliente);
       setFormData({
         nombre: cliente.nombre,
-        apellido: cliente.apellido,
-        email: cliente.email,
-        telefono: cliente.telefono,
-        ciudad: cliente.ciudad,
-        genero: cliente.genero,
-        fecha_nacimiento: cliente.fecha_nacimiento
+        edad: cliente.edad,
+        sexo: cliente.sexo
       });
     } else {
       setSelectedCliente(null);
       setFormData({
         nombre: '',
-        apellido: '',
-        email: '',
-        telefono: '',
-        ciudad: '',
-        genero: 'masculino',
-        fecha_nacimiento: ''
+        edad: '',
+        sexo: 'Hombre'
       });
     }
     setShowModal(true);
@@ -121,21 +109,19 @@ export default function Clientes() {
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Ciudad</th>
-              <th>Género</th>
+              <th>Edad</th>
+              <th>Sexo</th>
+              <th>Clases</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {clientes.map((cliente) => (
               <tr key={cliente.id_cliente}>
-                <td>{cliente.nombre} {cliente.apellido}</td>
-                <td>{cliente.email}</td>
-                <td>{cliente.telefono}</td>
-                <td>{cliente.ciudad}</td>
-                <td>{cliente.genero}</td>
+                <td>{cliente.nombre}</td>
+                <td>{cliente.edad}</td>
+                <td>{cliente.sexo}</td>
+                <td>{cliente.clases}</td>
                 <td>
                   <button className="btn-icon text-warning" onClick={() => openModal(cliente)}>
                     <FiEdit2 />
@@ -169,62 +155,26 @@ export default function Clientes() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Apellido *</label>
+                  <label>Edad *</label>
                   <input
-                    type="text"
-                    value={formData.apellido}
-                    onChange={(e) => setFormData({ ...formData, apellido: e.target.value })}
+                    type="number"
+                    value={formData.edad}
+                    onChange={(e) => setFormData({ ...formData, edad: e.target.value })}
                     required
                   />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label>Email *</label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Teléfono</label>
-                  <input
-                    type="tel"
-                    value={formData.telefono}
-                    onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Ciudad</label>
-                  <input
-                    type="text"
-                    value={formData.ciudad}
-                    onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Género</label>
+                  <label>Sexo</label>
                   <select
-                    value={formData.genero}
-                    onChange={(e) => setFormData({ ...formData, genero: e.target.value })}
+                    value={formData.sexo}
+                    onChange={(e) => setFormData({ ...formData, sexo: e.target.value })}
                   >
-                    <option value="masculino">Masculino</option>
-                    <option value="femenino">Femenino</option>
-                    <option value="otro">Otro</option>
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
                   </select>
                 </div>
-              </div>
-              <div className="form-group">
-                <label>Fecha de Nacimiento</label>
-                <input
-                  type="date"
-                  value={formData.fecha_nacimiento}
-                  onChange={(e) => setFormData({ ...formData, fecha_nacimiento: e.target.value })}
-                />
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={closeModal}>
