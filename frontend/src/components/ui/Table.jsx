@@ -1,33 +1,23 @@
 import { FiInbox } from 'react-icons/fi';
 
-export default function Table({ 
-  columns, 
-  data = [], 
+export default function Table({
+  columns = [],
+  data = [],
   loading = false,
   emptyMessage = 'No hay datos disponibles',
+  striped = false,
   onRowClick
 }) {
-  if (loading) {
-    return (
-      <div className="table-loading">
-        <div className="spinner-lg" />
-        <p>Cargando datos...</p>
-      </div>
-    );
-  }
 
-  if (!data.length) {
-    return (
-      <div className="table-empty">
-        <FiInbox className="empty-icon" />
-        <p>{emptyMessage}</p>
-      </div>
-    );
-  }
+  const stateCellStyles = {
+    padding: 'var(--spacing-8)',
+    textAlign: 'center',
+    color: 'var(--text-secondary)'
+  };
 
   return (
-    <div className="table-container">
-      <table className="table">
+    <div className="table-wrapper">
+      <table className={`table ${striped ? 'table-striped' : ''}`}>
         <thead>
           <tr>
             {columns.map((col) => (
@@ -38,19 +28,35 @@ export default function Table({
           </tr>
         </thead>
         <tbody>
-          {data.map((row, idx) => (
-            <tr 
-              key={row.id || idx} 
-              onClick={() => onRowClick?.(row)}
-              className={onRowClick ? 'clickable' : ''}
-            >
-              {columns.map((col) => (
-                <td key={col.key}>
-                  {col.render ? col.render(row[col.key], row) : row[col.key]}
-                </td>
-              ))}
+          {loading ? (
+            <tr>
+              <td colSpan={columns.length} style={stateCellStyles}>
+                Cargando...
+              </td>
             </tr>
-          ))}
+          ) : data.length === 0 ? (
+            <tr>
+              <td colSpan={columns.length} style={stateCellStyles}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-3)' }}>
+                  <FiInbox size={32} />
+                  <span>{emptyMessage}</span>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            data.map((row, idx) => (
+              <tr
+                key={row.id || idx}
+                onClick={() => onRowClick?.(row)}
+              >
+                {columns.map((col) => (
+                  <td key={col.key}>
+                    {col.render ? col.render(row[col.key], row) : row[col.key]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

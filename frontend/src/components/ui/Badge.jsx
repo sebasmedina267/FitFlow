@@ -1,17 +1,25 @@
-const variants = {
-  default: 'badge-default',
-  primary: 'badge-primary',
-  success: 'badge-success',
-  warning: 'badge-warning',
-  danger: 'badge-danger',
-  info: 'badge-info'
-};
+const Badge = ({ children, variant = 'secondary', className = '' }) => {
 
-export default function Badge({ children, variant = 'default', dot = false }) {
+  const baseClass = 'badge';
+  const variantClasses = {
+    primary: 'badge-primary',
+    secondary: 'badge-secondary',
+    success: 'badge-success',
+    warning: 'badge-warning',
+    danger: 'badge-danger'
+  };
+
+  const classes = [
+    baseClass,
+    variantClasses[variant],
+    className
+  ].filter(Boolean).join(' ');
+
   return (
-    <span className={`badge ${variants[variant]}`}>
-      {dot && <span className="badge-dot" />}
+    <span className={classes}>
       {children}
     </span>
   );
-}
+};
+
+export default Badge;

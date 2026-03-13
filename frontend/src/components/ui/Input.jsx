@@ -2,21 +2,30 @@ import { forwardRef } from 'react';
 
 const Input = forwardRef(({ 
   label,
+  type = 'text',
   error,
-  icon: Icon,
-  helper,
+  helperText,
   className = '',
   ...props 
 }, ref) => {
+
+  const inputClasses = [
+    'form-control',
+    error ? 'is-invalid' : '',
+    className
+  ].filter(Boolean).join(' ');
+
   return (
-    <div className={`form-field ${error ? 'has-error' : ''} ${className}`}>
+    <div className="form-group">
       {label && <label className="form-label">{label}</label>}
-      <div className={`input-wrapper ${Icon ? 'has-icon' : ''}`}>
-        {Icon && <Icon className="input-icon" />}
-        <input ref={ref} className="form-input" {...props} />
-      </div>
-      {error && <span className="form-error">{error}</span>}
-      {helper && !error && <span className="form-helper">{helper}</span>}
+      <input 
+        ref={ref}
+        type={type}
+        className={inputClasses}
+        {...props} 
+      />
+      {error && <div className="invalid-feedback">{error}</div>}
+      {helperText && !error && <div className="feedback">{helperText}</div>}
     </div>
   );
 });

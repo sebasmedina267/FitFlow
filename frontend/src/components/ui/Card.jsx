@@ -1,46 +1,34 @@
-export default function Card({ 
+import { forwardRef } from 'react';
+
+const Card = forwardRef(({ 
   children, 
-  title, 
-  subtitle,
+  title,
   actions,
-  padding = true,
+  glow = false,
   className = '' 
-}) {
+}, ref) => {
+
+  const classes = [
+    'card',
+    glow ? 'card-glow' : '',
+    className
+  ].filter(Boolean).join(' ');
+
   return (
-    <div className={`card ${className}`}>
+    <div ref={ref} className={classes}>
       {(title || actions) && (
         <div className="card-header">
-          <div className="card-header-content">
-            {title && <h3 className="card-title">{title}</h3>}
-            {subtitle && <p className="card-subtitle">{subtitle}</p>}
-          </div>
+          {title && <h2>{title}</h2>}
           {actions && <div className="card-actions">{actions}</div>}
         </div>
       )}
-      <div className={`card-body ${!padding ? 'no-padding' : ''}`}>
+      <div className="card-body">
         {children}
       </div>
     </div>
   );
-}
+});
 
-Card.Stat = function StatCard({ icon: Icon, title, value, trend, trendValue, variant = 'default' }) {
-  return (
-    <div className={`stat-card stat-${variant}`}>
-      {Icon && (
-        <div className="stat-icon">
-          <Icon />
-        </div>
-      )}
-      <div className="stat-content">
-        <span className="stat-value">{value}</span>
-        <span className="stat-title">{title}</span>
-        {trend && (
-          <span className={`stat-trend trend-${trend}`}>
-            {trendValue}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-};
+Card.displayName = 'Card';
+
+export default Card;

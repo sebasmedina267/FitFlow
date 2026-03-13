@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 
-import Layout from './components/Layout';
+import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import Login from './pages/Login';
@@ -15,6 +15,7 @@ import Productos from './pages/Productos';
 import Pagos from './pages/Pagos';
 import Economia from './pages/Economia';
 import Administradores from './pages/Administradores';
+import AdminProfile from './pages/AdminProfile';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,59 +32,33 @@ function App() {
       <BrowserRouter>
         <Toaster position="top-right" />
         <Routes>
-          {/* Public Routes */}
+          {/* Rutas Públicas */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Protected Routes */}
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Layout><Navigate to="/dashboard" replace /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Layout><Dashboard /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/clientes" element={
-            <ProtectedRoute>
-              <Layout><Clientes /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/clases" element={
-            <ProtectedRoute>
-              <Layout><Clases /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/maquinas" element={
-            <ProtectedRoute>
-              <Layout><Maquinas /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/productos" element={
-            <ProtectedRoute>
-              <Layout><Productos /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/pagos" element={
-            <ProtectedRoute>
-              <Layout><Pagos /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/economia" element={
-            <ProtectedRoute>
-              <Layout><Economia /></Layout>
-            </ProtectedRoute>
-          } />
-          <Route path="/administradores" element={
-            <ProtectedRoute>
-              <Layout><Administradores /></Layout>
-            </ProtectedRoute>
-          } />
+          {/* Rutas Protegidas */}
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="clientes" element={<Clientes />} />
+            <Route path="clases" element={<Clases />} />
+            <Route path="maquinas" element={<Maquinas />} />
+            <Route path="productos" element={<Productos />} />
+            <Route path="pagos" element={<Pagos />} />
+            <Route path="economia" element={<Economia />} />
+            <Route path="administradores" element={<Administradores />} />
+            <Route path="perfil" element={<AdminProfile />} />
+          </Route>
 
-          {/* Catch all */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          {/* Redirección para rutas no encontradas */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

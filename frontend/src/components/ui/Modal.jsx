@@ -1,37 +1,49 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { FiX } from 'react-icons/fi';
-import Button from './Button';
 
-export default function Modal({ 
-  isOpen, 
-  onClose, 
-  title, 
-  children,
-  footer,
-  size = 'md'
-}) {
+export default function Modal({ isOpen, onClose, title, children, footer }) {
+  const [isMounted, setIsMounted] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
+
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !isMounted) {
+      setIsMounted(true);
       document.body.style.overflow = 'hidden';
+    } else if (!isOpen && isMounted) {
+      setAnimationClass('is-closing');
+      const timer = setTimeout(() => {
+        setAnimationClass('');
+        setIsMounted(false);
+        document.body.style.overflow = 'unset';
+      }, 300); // Duration matches the CSS animation
+      return () => clearTimeout(timer);
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  }, [isOpen, isMounted]);
 
-  if (!isOpen) return null;
+  if (!isMounted) {
+    return null;
+  }
 
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) onClose();
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
   };
 
-  return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className={`modal modal-${size}`}>
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
+  return createPortal(
+    <div className={`modal-overlay ${animationClass}`} onClick={handleBackdropClick}>
+      <div className="modal-content">
         <div className="modal-header">
-          <h2 className="modal-title">{title}</h2>
-          <button className="modal-close" onClick={onClose}>
-            <FiX />
+          {title && <h2>{title}</h2>}
+          <button className="modal-close-btn" onClick={handleClose}>
+            <FiX size={24} />
           </button>
         </div>
         <div className="modal-body">
@@ -43,25 +55,7 @@ export default function Modal({
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
-
-// Sub-componente para formularios
-Modal.Form = function ModalForm({ children, onSubmit, submitText = 'Guardar', onCancel, loading }) {
-  return (
-    <form onSubmit={onSubmit}>
-      <div className="modal-form-content">
-        {children}
-      </div>
-      <div className="modal-footer">
-        <Button variant="ghost" type="button" onClick={onCancel}>
-          Cancelar
-        </Button>
-        <Button type="submit" loading={loading}>
-          {submitText}
-        </Button>
-      </div>
-    </form>
-  );
-};
