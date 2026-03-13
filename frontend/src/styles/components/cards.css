@@ -1,57 +1,56 @@
 /* =========================================
-   FitFlow - Electric Neon Cards
+   FitFlow - Professional & Modern Cards
    ========================================= */
 
 .card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
 }
 
 .card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-4px);
-}
-
-.card-header {
-  padding: var(--spacing-4);
-  border-bottom: 1px solid var(--border-color);
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.card-body {
-  padding: var(--spacing-4);
-}
-
-.stat-card {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-4);
-  padding: var(--spacing-4);
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
   box-shadow: var(--shadow-md);
 }
 
-.stat-icon {
-  font-size: 2rem;
-  padding: 1rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card-header {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--bg-tertiary);
 }
 
-.stat-info h3 {
-  font-size: 1.8rem;
-  margin: 0;
+.card-body {
+  padding: var(--spacing-5);
 }
 
-.stat-info p {
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-5);
+}
+
+.stat-card {
+  padding: var(--spacing-5);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-2) 0;
+  color: var(--accent-blue);
+}
+
+.stat-card p {
+  font-size: 1rem;
   color: var(--text-secondary);
   margin: 0;
 }

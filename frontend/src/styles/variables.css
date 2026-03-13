@@ -1,53 +1,53 @@
 /* =========================================
-   FitFlow - Electric Neon Dark Theme
+   FitFlow - Professional & Modern Theme
    ========================================= */
 
 :root {
-  /* ===== Base Palette - Deep Space ===== */
-  --bg-primary: #0a0a0f;       /* Near-black for deep contrast */
-  --bg-secondary: #1a1a2e;     /* Dark navy blue for secondary surfaces */
-  --bg-tertiary: #16213e;      /* A slightly lighter navy for depth */
+  /* ===== Base Palette - Clean & Light ===== */
+  --bg-primary: #f8f9fa;       /* Light gray for the main background */
+  --bg-secondary: #ffffff;     /* White for cards and secondary surfaces */
+  --bg-tertiary: #e9ecef;      /* A slightly darker gray for depth */
 
-  /* ===== Accent Colors - Electric & Vibrant ===== */
-  --accent-cyan: #00f5d4;      /* Bright, electric cyan */
-  --accent-magenta: #ff00f5;  /* Vibrant magenta for highlights */
-  --accent-green: #39ff14;     /* Neon green for success states */
-  --accent-yellow: #f8f32b;    /* Bright yellow for warnings */
-  --accent-red: #ff3131;       /* Electric red for errors */
+  /* ===== Accent Colors - Calm & Professional ===== */
+  --accent-blue: #007bff;      /* Primary blue for interactive elements */
+  --accent-green: #28a745;     /* Green for success states */
+  --accent-red: #dc3545;       /* Red for error states */
+  --accent-yellow: #ffc107;    /* Yellow for warnings */
 
   /* ===== Text & Borders ===== */
-  --text-primary: #f0f0f5;     /* Soft white for readability */
-  --text-secondary: #a9a9b8;   /* Muted gray for secondary text */
-  --border-color: #3d3d5e;     /* Subtle border to define elements */
-  --border-hover: var(--accent-cyan);
+  --text-primary: #212529;     /* Dark gray for primary text */
+  --text-secondary: #6c757d;   /* Muted gray for secondary text */
+  --border-color: #dee2e6;     /* Subtle border for elements */
+  --border-hover: var(--accent-blue);
 
   /* ===== Semantic Colors ===== */
-  --color-primary: var(--accent-cyan);
-  --color-primary-light: rgba(0, 245, 212, 0.1);
+  --color-primary: var(--accent-blue);
   --color-success: var(--accent-green);
   --color-danger: var(--accent-red);
   --color-warning: var(--accent-yellow);
 
-  /* ===== Shadows & Glows ===== */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
-  --glow-primary: 0 0 8px var(--accent-cyan), 0 0 16px rgba(0, 245, 212, 0.5);
-  --glow-magenta: 0 0 8px var(--accent-magenta), 0 0 16px rgba(255, 0, 245, 0.5);
+  /* ===== Shadows & Elevation ===== */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 
   /* ===== Layout ===== */
-  --sidebar-width: 240px;
-  --header-height: 70px;
+  --sidebar-width: 250px;
+  --header-height: 60px;
 
   /* ===== Typography & Spacing ===== */
-  --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-size-base: 1rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
   --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
 
   /* ===== Transitions ===== */
-  --transition-fast: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
-  --transition-base: 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
-  --transition-slow: 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-fast: 200ms ease-in-out;
+  --transition-base: 300ms ease-in-out;
 }
 
 /* Base Styles */
@@ -55,4 +55,6 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
 }

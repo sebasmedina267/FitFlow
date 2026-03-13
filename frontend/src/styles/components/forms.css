@@ -1,109 +1,63 @@
 /* =========================================
-   Form Elements
+   FitFlow - Professional & Modern Forms
    ========================================= */
+
 .form-group {
   margin-bottom: var(--spacing-4);
 }
 
-.form-label {
+label {
   display: block;
-  font-size: var(--font-size-sm);
+  font-size: 0.9rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   margin-bottom: var(--spacing-2);
 }
 
-.form-required {
-  color: var(--color-danger);
-  margin-left: var(--spacing-1);
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  left: var(--spacing-3);
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gray-400);
-  pointer-events: none;
-}
-
-.form-input,
-.form-select,
-.form-textarea {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
   width: 100%;
   padding: var(--spacing-3) var(--spacing-4);
   font-family: inherit;
-  font-size: var(--font-size-sm);
+  font-size: 1rem;
   color: var(--text-primary);
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: 6px;
   transition: all var(--transition-fast);
 }
 
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
   outline: none;
-  border-color: var(--accent-cyan);
-  background-color: var(--bg-tertiary);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
 
-.form-input::placeholder {
-  color: var(--text-tertiary);
-}
-
-.form-input--with-icon {
-  padding-left: 40px;
-}
-
-.form-input--error,
-.form-select--error {
-  border-color: var(--color-danger);
-}
-
-.form-input--error:focus,
-.form-select--error:focus {
-  box-shadow: 0 0 0 3px var(--color-danger-light);
-}
-
-.form-error {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-1);
-  color: var(--color-danger);
-  font-size: var(--font-size-xs);
-  margin-top: var(--spacing-1);
-}
-
-.form-helper {
-  color: var(--gray-500);
-  font-size: var(--font-size-xs);
-  margin-top: var(--spacing-1);
-}
-
-.form-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.form-select {
+select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  padding-right: 40px;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-right: 2.5rem;
 }
 
 .form-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-4);
+  display: flex;
+  gap: var(--spacing-5);
 }
 
+.form-row > .form-group {
+  flex: 1;
+}

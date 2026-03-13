@@ -1,54 +1,82 @@
 /* =========================================
-   FitFlow - Electric Neon Buttons
+   FitFlow - Professional & Modern Buttons
    ========================================= */
 
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--border-color);
+  gap: var(--spacing-2);
+  padding: 0.65rem 1.25rem;
+  border: 1px solid transparent;
   border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
+  text-decoration: none;
   transition: all var(--transition-fast);
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary {
   background-color: var(--color-primary);
-  color: var(--bg-primary);
-  border-color: var(--color-primary);
+  color: #fff;
 }
 
 .btn-primary:hover {
-  box-shadow: var(--glow-primary);
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 .btn-success {
   background-color: var(--color-success);
-  color: var(--bg-primary);
-  border-color: var(--color-success);
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #1f7a33; /* Darker green on hover */
 }
 
 .btn-danger {
   background-color: var(--color-danger);
-  color: var(--bg-primary);
-  border-color: var(--color-danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #b02a37; /* Darker red on hover */
 }
 
 .btn-secondary {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
+  border-color: var(--border-color);
 }
 
 .btn-secondary:hover {
-  border-color: var(--border-hover);
+  background-color: #d3d9df;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.btn-icon:hover {
+  color: var(--text-primary);
+}
+
+.text-success {
+    color: var(--color-success);
+}
+
+.text-danger {
+    color: var(--color-danger);
 }

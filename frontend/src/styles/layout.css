@@ -1,5 +1,5 @@
 /* =========================================
-   FitFlow - Electric Neon Layout
+   FitFlow - Professional & Modern Layout
    ========================================= */
 
 .layout {
@@ -15,50 +15,52 @@
   width: var(--sidebar-width);
   background: var(--bg-secondary);
   border-right: 1px solid var(--border-color);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
   transition: width var(--transition-base);
   z-index: 1000;
 }
 
 .sidebar-header {
-  height: var(--header-height);
   display: flex;
   align-items: center;
-  padding: 0 var(--spacing-4);
+  padding-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-5);
   border-bottom: 1px solid var(--border-color);
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: var(--accent-cyan);
-  text-shadow: var(--glow-primary);
+  color: var(--accent-blue);
 }
 
 .sidebar-nav {
-  padding-top: var(--spacing-4);
+  flex-grow: 1;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
-  padding: 1rem var(--spacing-4);
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  margin-bottom: var(--spacing-1);
+  border-radius: 6px;
   color: var(--text-secondary);
   text-decoration: none;
+  font-weight: 500;
   transition: all var(--transition-fast);
-  border-left: 3px solid transparent;
 }
 
 .nav-item:hover {
   color: var(--text-primary);
   background-color: var(--bg-tertiary);
-  border-left-color: var(--accent-cyan);
 }
 
 .nav-item.active {
-  color: var(--accent-cyan);
-  background-color: var(--color-primary-light);
-  border-left-color: var(--accent-cyan);
+  background-color: var(--accent-blue);
+  color: #fff;
 }
 
 .main-wrapper {
@@ -71,24 +73,33 @@
   position: sticky;
   top: 0;
   height: var(--header-height);
-  background-color: rgba(26, 26, 46, 0.8);
-  backdrop-filter: blur(10px);
+  background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
-  padding: 0 var(--spacing-4);
+  padding: 0 var(--spacing-5);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   z-index: 999;
 }
 
 .main-content {
-  padding: var(--spacing-4);
+  padding: var(--spacing-5);
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .page-header {
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: var(--spacing-4);
-  margin-bottom: var(--spacing-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-5);
 }
 
 .page-title {
-  font-size: 2rem;
+  font-size: 2.25rem;
+  font-weight: 700;
   color: var(--text-primary);
 }

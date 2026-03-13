@@ -90,7 +90,7 @@ export default function Pagos() {
       </div>
 
       <div className="stats-grid mb-4">
-        <div className="stat-card"><h3>${stats?.totalPagado?.toFixed(2) || 0}</h3><p>Total Pagado</p></div>
+        <div className="stat-card"><h3>${parseFloat(stats?.totalPagado || 0).toFixed(2)}</h3><p>Total Pagado</p></div>
         <div className="stat-card"><h3>{stats?.totalPendientes || 0}</h3><p>Pagos Pendientes</p></div>
       </div>
 
@@ -111,7 +111,7 @@ export default function Pagos() {
               <tr key={p.id_pago}>
                 <td>{p.cliente_nombre}</td>
                 <td>{p.clase_nombre}</td>
-                <td>${p.importe.toFixed(2)}</td>
+                <td>${parseFloat(p.importe || 0).toFixed(2)}</td>
                 <td>{p.fecha_pago ? new Date(p.fecha_pago).toLocaleDateString() : 'N/A'}</td>
                 <td><span className={`badge ${p.pagado ? 'badge-success' : 'badge-warning'}`}>{p.pagado ? 'Pagado' : 'Pendiente'}</span></td>
                 <td>
