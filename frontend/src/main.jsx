@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+// 0. Theme Variables
+import './styles/theme.css';
+
 // 1. Global Styles (incluyendo reseteos y tipografía)
 import './styles/global.css';
 

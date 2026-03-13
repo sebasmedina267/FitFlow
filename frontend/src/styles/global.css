@@ -2,7 +2,7 @@
    FitFlow - Global Styles & Resets
    ========================================= */
 
-@import './variables.css';
+@import './theme.css';
 
 *,
 *::before,
