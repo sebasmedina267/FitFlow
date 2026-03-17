@@ -1,75 +1,9 @@
-/* =========================================
-   FitFlow - Neon Card Styles
-   ========================================= */
+@import "../variables.css";
 
 .card {
-  background-color: rgba(26, 31, 58, 0.7); /* Semi-transparent background */
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-6);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(10px); /* Frosted glass effect */
-  -webkit-backdrop-filter: blur(10px);
-  transition: all var(--transition-base);
-}
-
-.card:hover {
-  border-color: var(--border-light);
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.card-header {
-  padding-bottom: var(--spacing-4);
-  margin-bottom: var(--spacing-4);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.card-header h1,
-.card-header h2,
-.card-header h3 {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  color: var(--accent-cyan);
-}
-
-.card-body p:last-child {
-  margin-bottom: 0;
-}
-
-/* === Glow Border Card === */
-.card-glow {
-  position: relative;
-  overflow: hidden;
-}
-
-.card-glow::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: var(--radius-xl);
-  border: 2px solid transparent;
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  z-index: -1;
-  transition: all var(--transition-base);
-}
-
-.card-glow:hover::before {
-  opacity: 1;
-  animation: rotate-glow 3s linear infinite;
-}
-
-@keyframes rotate-glow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
 }

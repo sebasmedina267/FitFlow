@@ -1,70 +1,13 @@
-/* =========================================
-   FitFlow - Neon Table Styles
-   ========================================= */
-
-.table-wrapper {
-  overflow-x: auto;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  background-color: var(--bg-secondary);
-}
+@import "../variables.css";
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--font-size-base);
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .table th,
 .table td {
-  padding: var(--spacing-4) var(--spacing-5);
-  text-align: left;
-  vertical-align: middle;
-}
-
-.table thead {
-  background-color: var(--bg-tertiary);
-  border-bottom: 2px solid var(--border-color);
-}
-
-.table thead th {
-  font-weight: 700;
-  color: var(--accent-cyan);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: var(--font-size-sm);
-}
-
-.table tbody tr {
-  border-bottom: 1px solid var(--border-color);
-  transition: background-color var(--transition-fast);
-}
-
-.table tbody tr:last-child {
-  border-bottom: none;
-}
-
-.table tbody tr:hover {
-  background-color: var(--bg-tertiary);
-  cursor: pointer;
-}
-
-/* Striped Table */
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(37, 45, 71, 0.5); /* Lighter shade for odd rows */
-}
-
-.table-striped tbody tr:nth-of-type(odd):hover {
-  background-color: var(--bg-tertiary);
-}
-
-/* Table Actions */
-.table-actions {
-  display: flex;
-  gap: var(--spacing-3);
-}
-
-.table-actions .btn {
-  padding: var(--spacing-1) var(--spacing-2);
-  font-size: var(--font-size-sm);
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
 }
