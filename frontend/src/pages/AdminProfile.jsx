@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import '../../styles/pages/admin-profile.css';
+import '../styles/pages/admin-profile.css';
 
 const AdminProfile = () => {
   const [user, setUser] = useState({
@@ -42,7 +42,7 @@ const AdminProfile = () => {
       .sort((a, b) => {
         const dateA = new Date(a.timestamp);
         const dateB = new Date(b.timestamp);
-        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        return sortOrder === 'asc' ? dateA - dateB : dateB - a;
       });
   }, [activities, filter, sortOrder]);
 

@@ -2,8 +2,6 @@
    FitFlow - Neon Card Styles
    ========================================= */
 
-@import '../variables.css';
-
 .card {
   background-color: rgba(26, 31, 58, 0.7); /* Semi-transparent background */
   border: 1px solid var(--border-color);

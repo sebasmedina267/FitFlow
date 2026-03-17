@@ -2,10 +2,6 @@
    FitFlow - Admin Profile Page Styles
    ========================================= */
 
-@import '../variables.css';
-@import '../components/cards.css';
-@import '../components/buttons.css';
-
 .admin-profile-page {
   padding: var(--spacing-8);
 }

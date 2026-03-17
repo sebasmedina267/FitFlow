@@ -2,8 +2,6 @@
    FitFlow - Neon Modal Styles
    ========================================= */
 
-@import '../variables.css';
-
 .modal-overlay {
   position: fixed;
   top: 0;

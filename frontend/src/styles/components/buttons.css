@@ -2,8 +2,6 @@
    FitFlow - Neon Button Styles
    ========================================= */
 
-@import '../variables.css';
-
 .btn {
   display: inline-block;
   font-family: var(--font-family-sans);

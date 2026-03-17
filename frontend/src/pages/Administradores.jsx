@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { FiPlus, FiEdit2, FiTrash2, FiX } from 'react-icons/fi';
 import { adminService } from '../services/api';
+import useAuthStore from '../store/authStore';
 
 export default function Administradores() {
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,7 @@ export default function Administradores() {
   });
 
   const queryClient = useQueryClient();
+  const { admin: currentAdmin } = useAuthStore();
 
   const { data: adminsData, isLoading } = useQuery({
     queryKey: ['administradores'],
@@ -96,9 +98,11 @@ export default function Administradores() {
     <div className="page-container">
       <div className="page-header">
         <h1 className="page-title">Administradores</h1>
-        <button className="btn btn-primary" onClick={() => openModal()}>
-          <FiPlus /> Nuevo Administrador
-        </button>
+        {currentAdmin && currentAdmin.rol === 'dueno' && (
+          <button className="btn btn-primary" onClick={() => openModal()}>
+            <FiPlus /> Nuevo Administrador
+          </button>
+        )}
       </div>
 
       <div className="stats-grid mb-4">
@@ -133,7 +137,7 @@ export default function Administradores() {
                 <td>{admin.nombre} {admin.apellido}</td>
                 <td>{admin.email}</td>
                 <td>
-                  <span className="badge badge-info">{admin.rol}</span>
+                  <span className={`badge badge-${admin.rol === 'dueno' ? 'primary' : 'info'}`}>{admin.rol}</span>
                 </td>
                 <td>
                   <span className={`badge ${admin.estado === 'activo' ? 'badge-success' : 'badge-danger'}`}>
@@ -141,12 +145,18 @@ export default function Administradores() {
                   </span>
                 </td>
                 <td>
-                  <button className="btn-icon text-warning" onClick={() => openModal(admin)}>
-                    <FiEdit2 />
-                  </button>
-                  <button className="btn-icon text-danger" onClick={() => deleteMutation.mutate(admin.id_admin)}>
-                    <FiTrash2 />
-                  </button>
+                  {currentAdmin && currentAdmin.rol === 'dueno' && (
+                    <>
+                      <button className="btn-icon text-warning" onClick={() => openModal(admin)}>
+                        <FiEdit2 />
+                      </button>
+                      {admin.rol !== 'dueno' && (
+                        <button className="btn-icon text-danger" onClick={() => deleteMutation.mutate(admin.id_admin)}>
+                          <FiTrash2 />
+                        </button>
+                      )}
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

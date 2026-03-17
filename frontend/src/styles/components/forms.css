@@ -2,8 +2,6 @@
    FitFlow - Neon Form Styles
    ========================================= */
 
-@import '../variables.css';
-
 .form-group {
   margin-bottom: var(--spacing-5);
 }

@@ -2,8 +2,6 @@
    FitFlow - Neon Table Styles
    ========================================= */
 
-@import '../variables.css';
-
 .table-wrapper {
   overflow-x: auto;
   border: 1px solid var(--border-color);
