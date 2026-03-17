@@ -1,0 +1,33 @@
+
+.app {
+  display: flex;
+}
+
+main {
+  flex-grow: 1;
+}
+
+header {
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+aside {
+  width: 200px;
+  background-color: #e0e0e0;
+  padding: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
