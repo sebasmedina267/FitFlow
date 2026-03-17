@@ -35,6 +35,11 @@ app.use(express.urlencoded({ extended: true }));
 // Servir archivos estáticos (uploads)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// Servir archivos estáticos del frontend compilado (solo en producción)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+}
+
 // Rutas de la API
 app.use('/api/auth', authRoutes);
 app.use('/api/clientes', clienteRoutes);
@@ -49,6 +54,16 @@ app.use('/api/admins', adminRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'FitFlow API funcionando correctamente' });
 });
+
+// Servir index.html para rutas del frontend (solo en producción, para React Router)
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    // No servir index.html para rutas de API
+    if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
+      res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+    }
+  });
+}
 
 // Middleware de manejo de errores (debe ir al final)
 app.use(errorHandler);

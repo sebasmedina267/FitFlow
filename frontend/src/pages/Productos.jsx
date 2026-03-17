@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiShoppingCart, FiDollarSign } from 'react-icons/fi';
 import { productoService } from '../services/api';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3001';
 
 export default function Productos() {
   const [modal, setModal] = useState({ type: null, data: null }); // type: 'create', 'edit', 'buy', 'sell'
