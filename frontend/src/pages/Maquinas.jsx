@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { FiPlus, FiEdit2, FiTrash2, FiX } from 'react-icons/fi';
 import { maquinaService } from '../services/api';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3001';
 
 export default function Maquinas() {
   const [showModal, setShowModal] = useState(false);
